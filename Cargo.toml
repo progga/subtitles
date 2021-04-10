@@ -1,0 +1,10 @@
+[package]
+name = "subtitles"
+version = "0.1.0"
+authors = ["progga"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+unicode-segmentation = "1.7.0"
