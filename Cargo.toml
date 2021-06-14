@@ -1,14 +1,14 @@
 [package]
 name = "subtitles"
 description = "A command line programme to generate SRT format subtitles for use in video players."
-version = "0.1.0"
+version = "0.1.1"
 authors = ["progga"]
 edition = "2018"
 repository = "https://github.com/progga/subtitles"
 homepage = "https://subtitles.codesetter.com"
 license = "BSD-2-Clause"
 keywords = ["closed-caption", "subtitle", "srt"]
-categories = ["command-line-utilities", "webassembly"]
+categories = ["command-line-utilities", "wasm"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
