@@ -1,15 +1,10 @@
-/**
- * @file
- * Prepare subtitle file (i.e. .srt file) from given text.
- */
+//! Prepare subtitle file (i.e. .srt file) from given text.
 use std::env;
 use std::fs;
 
-/**
- * Converts input file content into an SRT file.
- *
- * Prints SRT file content to stdout.
- */
+/// Converts input file content into an SRT file.
+///
+/// Prints SRT file content to stdout.
 fn main() {
     let cli_args: Vec<String> = env::args().collect();
     if cli_args.len() != 3 {

@@ -1,12 +1,8 @@
-/**
- * @file
- * Prepares subtitles from given text.
- */
+//! Prepares subtitles from given text.
+
 use unicode_segmentation::UnicodeSegmentation; // 1.7.1
 
-/**
- * Split the entire file into *potential* subtitles.
- */
+/// Split the entire file into *potential* subtitles.
 pub fn split_into_subtitles(file_content: &str) -> Vec<&str> {
     let mut subtitle_list: Vec<&str> = Vec::new();
     let sentence_list: Vec<&str> = file_content.unicode_sentences().collect();
@@ -19,14 +15,12 @@ pub fn split_into_subtitles(file_content: &str) -> Vec<&str> {
     return subtitle_list;
 }
 
-/**
- * Determine grapheme count for the purpose of subtitling.
- *
- * Ignores anything that is not considered alphanumeric.
- *
- * @see https://en.wikipedia.org/wiki/Grapheme
- * @see https://en.wikipedia.org/wiki/Alphanumeric
- */
+/// Determine grapheme count for the purpose of subtitling.
+///
+/// Ignores anything that is not considered alphanumeric.
+///
+/// @see https://en.wikipedia.org/wiki/Grapheme
+/// @see https://en.wikipedia.org/wiki/Alphanumeric
 pub fn get_grapheme_count(text: &str) -> u32 {
     let mut text_copy = String::from(text);
 
@@ -35,15 +29,13 @@ pub fn get_grapheme_count(text: &str) -> u32 {
     return text_copy.graphemes(true).count() as u32;
 }
 
-/**
- * Split a sentence into subtitles.
- *
- * Each sentence will produce a maximum of 5 subtitles.
- *
- * Each subtitle contains 10 words.  The last subtitle is an exception.
- *
- * @todo Split into multiple functions and house them in a separate module.
- */
+/// Split a sentence into subtitles.
+///
+/// Each sentence will produce a maximum of 5 subtitles.
+///
+/// Each subtitle contains 10 words.  The last subtitle is an exception.
+///
+/// @todo Split into multiple functions and house them in a separate module.
 fn prepare_subtitles_from_sentence<'a>(sentence: &'a str) -> Vec<&'a str> {
     fn has_alphanumeric(word_w_index: &(usize, &str)) -> bool {
         word_w_index.1.chars().any(|c| c.is_alphabetic())
@@ -108,12 +100,10 @@ fn prepare_subtitles_from_sentence<'a>(sentence: &'a str) -> Vec<&'a str> {
     return subtitle_list;
 }
 
-/**
- * Extracts a subtitle from a sentence.
- *
- * Extracts a certain portion of a sentence that will form a subtitle.  Assumes
- * that each subtitle has a fixed number of words.
- */
+/// Extracts a subtitle from a sentence.
+///
+/// Extracts a certain portion of a sentence that will form a subtitle.  Assumes
+/// that each subtitle has a fixed number of words.
 fn subtitle_from_index<'a>(
     subtitle_index: usize,
     subtitle_word_count: usize,

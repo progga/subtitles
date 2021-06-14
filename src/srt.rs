@@ -1,8 +1,6 @@
-/**
- * @file
- * Prepares a subtitle file (i.e. .srt file) from given text.
- */
+//! Prepares a subtitle file (i.e. .srt file) from given text.
 use std::fmt::Write;
+use wasm_bindgen::prelude::*;
 
 struct SrtEntry<'a> {
     counter: u32,
@@ -11,11 +9,10 @@ struct SrtEntry<'a> {
     end: f32,
 }
 
-/**
- * Plain text to SRT content.
- *
- * Given a long blob of text, turns it into an SRT file content.
- */
+/// Plain text to SRT content.
+///
+/// Given a long blob of text, turns it into an SRT file content.
+#[wasm_bindgen]
 pub fn prepare_srt_content(text: &str, length_in_seconds: u32) -> String {
     let mut srt_entry_list: Vec<SrtEntry> = Vec::new();
 
@@ -42,9 +39,7 @@ pub fn prepare_srt_content(text: &str, length_in_seconds: u32) -> String {
     return srt_content;
 }
 
-/**
- * Prepare a single entry for a single subtitle.
- */
+/// Prepare a single entry for a single subtitle.
 fn prepare_srt_entry(
     subtitle: &str,
     start: f32,
@@ -64,11 +59,9 @@ fn prepare_srt_entry(
     };
 }
 
-/**
- * Prints an SRT file into a *string*.
- *
- * @see https://en.wikipedia.org/wiki/SubRip
- */
+/// Prints an SRT file into a *string*.
+///
+/// @see https://en.wikipedia.org/wiki/SubRip
 fn srt_entries_to_str(srt_entry_list: Vec<SrtEntry>) -> String {
     let mut srt_content: String = String::new();
 
