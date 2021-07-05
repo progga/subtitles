@@ -9,7 +9,10 @@ use std::process;
 fn main() {
     let cli_args: Vec<String> = env::args().collect();
     if cli_args.len() != 3 {
-        eprintln!("Usage: {} INPUT-FILENAME OUTPUT-FILENAME", cli_args[0]);
+        eprintln!(
+            "Usage: {} INPUT-FILENAME LENGTH-IN-SECONDS > OUTPUT-FILENAME.srt",
+            cli_args[0]
+        );
         process::exit(1);
     }
 

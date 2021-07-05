@@ -9,7 +9,8 @@ Youngling.  Actively-developed.
 ## Usage
 ### CLI
 ```
-$ subtitles INPUT-FILENAME.txt OUTPUT-FILENAME.srt
+$ subtitles INPUT-FILENAME.txt LENGTH-IN-SECONDS > OUTPUT-FILENAME.srt
+$ subtitles transcript.txt 300 > subtitles.srt # True example
 ```
 
 ### Webassembly
@@ -18,7 +19,7 @@ import init, * as subtitles from 'path/to/subtitles.js';
 
 (async () => await init())();
 
-let transcript_text = 'LOTS OF TEXT GOES HERE';
+let transcript_text = 'Lots of text goes here; newline is acceptable.';
 let audio_length_in_seconds = 99;
 
 const text_for_srt_file = subtitles.prepare_srt_content(transcript_text, audio_length_in_seconds);
