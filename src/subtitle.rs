@@ -15,20 +15,6 @@ pub fn split_into_subtitles(file_content: &str) -> Vec<&str> {
     return subtitle_list;
 }
 
-/// Determine grapheme count for the purpose of subtitling.
-///
-/// Ignores anything that is not considered alphanumeric.
-///
-/// @see https://en.wikipedia.org/wiki/Grapheme
-/// @see https://en.wikipedia.org/wiki/Alphanumeric
-pub fn get_grapheme_count(text: &str) -> u32 {
-    let mut text_copy = String::from(text);
-
-    text_copy.retain(|c| c.is_alphanumeric());
-
-    return text_copy.graphemes(true).count() as u32;
-}
-
 /// Split a sentence into subtitles.
 ///
 /// Each sentence will produce a maximum of 5 subtitles.

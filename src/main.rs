@@ -1,6 +1,7 @@
 //! Prepare subtitle file (i.e. .srt file) from given text.
 use std::env;
 use std::fs;
+use std::process;
 
 /// Converts input file content into an SRT file.
 ///
@@ -8,7 +9,8 @@ use std::fs;
 fn main() {
     let cli_args: Vec<String> = env::args().collect();
     if cli_args.len() != 3 {
-        return;
+        eprintln!("Usage: {} INPUT-FILENAME OUTPUT-FILENAME", cli_args[0]);
+        process::exit(1);
     }
 
     let input_filename: &str = cli_args[1].as_str();

@@ -2,6 +2,8 @@
 use std::fmt::Write;
 use wasm_bindgen::prelude::*;
 
+use unicode_segmentation::UnicodeSegmentation; // 1.7.1
+
 struct SrtEntry<'a> {
     counter: u32,
     subtitle: &'a str,
@@ -17,7 +19,7 @@ pub fn prepare_srt_content(text: &str, length_in_seconds: u32) -> String {
     let mut srt_entry_list: Vec<SrtEntry> = Vec::new();
 
     let subtitle_list = crate::subtitle::split_into_subtitles(&text);
-    let total_grapheme_count = crate::subtitle::get_grapheme_count(&text);
+    let total_grapheme_count = get_grapheme_count(&text);
     let duration_per_grapheme: f32 = length_in_seconds as f32 / total_grapheme_count as f32;
     let mut last_subtitle_start_time = 0 as f32;
 
@@ -47,7 +49,7 @@ fn prepare_srt_entry(
     index: u32,
 ) -> SrtEntry {
     let counter = index + 1;
-    let grapheme_count = crate::subtitle::get_grapheme_count(&subtitle);
+    let grapheme_count = get_grapheme_count(&subtitle);
     let subtitle_duration = duration_per_grapheme * grapheme_count as f32;
     let end = start + subtitle_duration;
 
@@ -86,4 +88,18 @@ fn srt_entries_to_str(srt_entry_list: Vec<SrtEntry>) -> String {
     }
 
     return srt_content;
+}
+
+/// Determine grapheme count for the purpose of subtitling.
+///
+/// Ignores anything that is not considered alphanumeric.
+///
+/// @see https://en.wikipedia.org/wiki/Grapheme
+/// @see https://en.wikipedia.org/wiki/Alphanumeric
+fn get_grapheme_count(text: &str) -> u32 {
+    let mut text_copy = String::from(text);
+
+    text_copy.retain(|c| c.is_alphanumeric());
+
+    return text_copy.graphemes(true).count() as u32;
 }
