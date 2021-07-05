@@ -1,7 +1,7 @@
 [package]
 name = "subtitles"
 description = "A command line programme to generate SRT format subtitles for use in video players."
-version = "0.1.2"
+version = "0.1.3"
 authors = ["progga"]
 edition = "2018"
 repository = "https://github.com/progga/subtitles"
