@@ -1,23 +1,36 @@
 //! Prepare subtitle file (i.e. .srt file) from given text.
-use std::env;
+extern crate clap;
+use clap::{App, Arg};
 use std::fs;
-use std::process;
 
 /// Converts input file content into an SRT file.
 ///
 /// Prints SRT file content to stdout.
 fn main() {
-    let cli_args: Vec<String> = env::args().collect();
-    if cli_args.len() != 3 {
-        eprintln!(
-            "Usage: {} INPUT-FILENAME LENGTH-IN-SECONDS > OUTPUT-FILENAME.srt",
-            cli_args[0]
-        );
-        process::exit(1);
-    }
+    let cli_args = App::new("subtitles")
+        .version("0.1.4")
+        .arg(
+            Arg::with_name("input-filename")
+                .long("transcript")
+                .help("Input filename")
+                .takes_value(true)
+                .required(true),
+        )
+        .arg(
+            Arg::with_name("length-in-seconds")
+                .long("length")
+                .help("Video length in seconds")
+                .takes_value(true)
+                .required(true),
+        )
+        .get_matches();
 
-    let input_filename: &str = cli_args[1].as_str();
-    let length_in_seconds: u32 = cli_args[2].parse().unwrap();
+    let input_filename = cli_args.value_of("input-filename").unwrap();
+    let length_in_seconds = cli_args
+        .value_of("length-in-seconds")
+        .unwrap()
+        .parse::<u32>()
+        .expect("Expecting a number.");
 
     let input_file_content: String = fs::read_to_string(input_filename).expect("Cannot find file.");
 

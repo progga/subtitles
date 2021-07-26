@@ -9,8 +9,8 @@ Youngling.  Actively-developed.
 ## Usage
 ### CLI
 ```
-$ subtitles INPUT-FILENAME.txt LENGTH-IN-SECONDS > OUTPUT-FILENAME.srt
-$ subtitles transcript.txt 300 > subtitles.srt # True example
+$ subtitles --transcript INPUT-FILENAME.txt --length LENGTH-IN-SECONDS > OUTPUT-FILENAME.srt
+$ subtitles --transcript transcript.txt --length 300 > subtitles.srt # True example
 ```
 
 ### Webassembly
