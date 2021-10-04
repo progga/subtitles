@@ -1,7 +1,7 @@
 [package]
 name = "subtitles"
 description = "A command line programme to generate SRT format subtitles for use in video players."
-version = "0.1.5"
+version = "0.2.0"
 authors = ["progga"]
 edition = "2018"
 repository = "https://github.com/progga/subtitles"
@@ -17,6 +17,8 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 clap = "2.33.3"
+csv = "1.1"
+js-sys = "0.3"
 unicode-segmentation = "1.7.0"
 wasm-bindgen = "0.2"
 

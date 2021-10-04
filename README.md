@@ -1,5 +1,5 @@
 # Video subtitle generation
-A command line programme to generate [SRT format](https://en.wikipedia.org/wiki/SubRip) subtitles for use in video players.
+A command line programme to generate [SRT format](https://en.wikipedia.org/wiki/SubRip) subtitles for use in video players including YouTube.
 
 The subtitles are generated from the full transcript **text** of a video.  By default, each subtitle will have a maximum of 10 words.
 
@@ -17,12 +17,15 @@ $ subtitles --transcript transcript.txt --length 300 > subtitles.srt # True exam
 ```
 import init, * as subtitles from 'path/to/subtitles.js';
 
-(async () => await init())();
+(async () => {
+  await init();
 
-let transcript_text = 'Lots of text goes here; newline is acceptable.';
-let audio_length_in_seconds = 99;
+  let transcript_text = 'Lots of text goes here; newline is acceptable.';
+  let audio_length_in_seconds = 99;
+  let abbreviation_map = new Map([["UNGA", "United Nations General Assembly"], ["MDN", "Mozilla Developer Network"]]);
 
-const text_for_srt_file = subtitles.prepare_srt_content(transcript_text, audio_length_in_seconds);
+  const text_for_srt_file = subtitles.wasm_prepare_srt_content(transcript_text, audio_length_in_seconds, abbreviation_map);
+})()
 ```
 
 ## Build instruction
