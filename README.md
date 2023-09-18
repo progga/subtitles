@@ -45,9 +45,11 @@ $ cp pkg/{subtitles_bg.wasm,subtitles.js} /path/to/website/js/
 The abbreviation map is an *optional* feature.  This is provided as a **CSV file** (with no header row) from the command line or as a Javascript Map object when using the Wasm version.  Its purpose is to map those character or character sequences who are pronounced very differently from how they appear.  For example, the transcript may use "(UNGA)" whereas the narrator may say "United Nations General Assembly" instead.  Another example is the Unicode codepoint [U+FDFD](https://en.wikipedia.org/wiki/Basmala#Unicode) which is spoken as a full sentence.  In all these cases, the written form in the transcript do not hint how long it may take to say it.  By providing a mapping between the written form and the spoken form, we get more accurate timing for each subtitle.
 
 ### Example CSV
+```
 (UNGA),(United Nations General Assembly)
 (MDN),(Mozilla Developer Network)
 ﷽,Bi-smi llāhi r-raḥmāni r-raḥīm
+```
 
 ## Licence
 [Simplified BSD licence](https://spdx.github.io/license-list-data/BSD-2-Clause.html)
