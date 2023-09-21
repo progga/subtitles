@@ -59,6 +59,20 @@ fn test_prepare_subtitles_from_sentence() {
         "plateau in the Judaean Mountains between the Mediterranean and...".to_string(),
     ];
     assert_eq!(expected4, subtitle_list4);
+
+    // Test based on bug report #1.
+    // Text: Verse from the Bible (John. 7:6).
+    let sentence_that_broke_us = "7:6).";
+    let subtitle_list5 = prepare_subtitles_from_sentence(sentence_that_broke_us, 9, 4);
+
+    let expected5 = vec!["7:6).".to_string()];
+    assert_eq!(expected5, subtitle_list5);
+
+    let sentence_non_alphanumeric = ":-)";
+    let subtitle_list6 = prepare_subtitles_from_sentence(sentence_non_alphanumeric, 9, 4);
+
+    let expected6 = vec![sentence_non_alphanumeric.to_string()];
+    assert_eq!(expected6, subtitle_list6);
 }
 
 /// Split a sentence into subtitles.
@@ -68,7 +82,7 @@ fn prepare_subtitles_from_sentence<'a>(
     subtitle_min_word_count: usize,
 ) -> Vec<String> {
     fn has_alphanumeric(word_w_index: &(usize, &str)) -> bool {
-        word_w_index.1.chars().any(|c| c.is_alphabetic())
+        word_w_index.1.chars().any(|c| c.is_alphanumeric())
     }
 
     let word_indices: Vec<usize> = sentence
@@ -96,7 +110,14 @@ fn prepare_subtitles_from_sentence<'a>(
     }
 
     // Any remaining subtitle no longer than subtitle_max_word_count.
-    let last_subtitle = sentence[word_indices[subtitle_count * subtitle_max_word_count]..].trim();
+    let last_subtitle: &str;
+    if word_count_in_sentence > 0 {
+        last_subtitle = sentence[word_indices[subtitle_count * subtitle_max_word_count]..].trim();
+    } else {
+        // Limitations of the sentence segmentation process means we may end up
+        // with a completely nonalphanumeric sentence such as ":-)".
+        last_subtitle = sentence;
+    }
     subtitle_list.push(last_subtitle.to_string());
 
     let last_subtitle_word_count = word_count_in_sentence % subtitle_max_word_count;
