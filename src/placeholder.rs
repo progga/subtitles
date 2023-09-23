@@ -110,7 +110,7 @@ fn test_placeholder() {
 
     let text = "foo bar baz qux";
     let text_w_placeholders = placeholder.insert(text);
-    let text_w_fullform = placeholder.replace(&text_w_placeholders);
+    let text_w_fullform = placeholder.expand(&text_w_placeholders);
 
     let expected = "bar bar qux qux";
     assert_eq!(expected, text_w_fullform);
